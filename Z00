@@ -1,0 +1,121 @@
+public class Main {
+    public static void main(String[] args) {
+        // Create Habitats
+        Habitat savannah = new Habitat("Savannah", 500.0, 35.0);
+        Habitat rainforest = new Habitat("Rainforest", 300.0, 28.0);
+        Habitat aquarium = new Habitat("Aquarium", 200.0, 20.0);
+        Habitat aviary = new Habitat("Aviary", 150.0, 25.0);
+
+        // Create Zoo
+        Zoo zoo = new Zoo();
+
+        // Add Animals to Zoo
+        zoo.addAnimal1("Mark", "Lion", 5, savannah);
+        zoo.addAnimal2("Maria", "Zebra", 3, savannah);
+        zoo.addAnimal3("Aleks", "Clownfish", 1, aquarium);
+        zoo.addAnimal4("Nikola", "Parrot", 2, aviary);
+
+        // Create Staff
+        Staff elizabeth = new Staff("Elizabeth", "Zookeeper", savannah);
+        Staff ivan = new Staff("Ivan", "Aquatic Specialist", aquarium);
+
+        // Assign Staff to a Habitat
+        elizabeth.assignStaff(rainforest);
+
+        // Display Zoo Information
+        StringBuilder zooInfo = new StringBuilder("Zoo Animals:\n");
+        zooInfo.append("1. ").append(zoo.getAnimalDetails(1)).append("\n");
+        zooInfo.append("2. ").append(zoo.getAnimalDetails(2)).append("\n");
+        zooInfo.append("3. ").append(zoo.getAnimalDetails(3)).append("\n");
+        zooInfo.append("4. ").append(zoo.getAnimalDetails(4)).append("\n");
+
+        // Print the zoo information to the console
+        System.out.println(zooInfo.toString());
+    }
+}
+
+class Animal {
+    private String name;
+    private String species;
+    private int age;
+    private Habitat habitat;
+
+    public Animal(String name, String species, int age, Habitat habitat) {
+        this.name = name;
+        this.species = species;
+        this.age = age;
+        this.habitat = habitat;
+    }
+
+    public String getDetails() {
+        return name + " the " + species + ", Age: " + age + ", Habitat: " + habitat.getType();
+    }
+}
+
+class Habitat {
+    private String type;
+    private double size;
+    private double temperature;
+
+    public Habitat(String type, double size, double temperature) {
+        this.type = type;
+        this.size = size;
+        this.temperature = temperature;
+    }
+
+    public String getType() {
+        return type;
+    }
+}
+
+class Zoo {
+    Animal a1;
+    Animal a2;
+    Animal a3;
+    Animal a4;
+
+    void addAnimal1(String name, String species, int age, Habitat habitat) {
+        a1 = new Animal(name, species, age, habitat);
+    }
+
+    void addAnimal2(String name, String species, int age, Habitat habitat) {
+        a2 = new Animal(name, species, age, habitat);
+    }
+
+    void addAnimal3(String name, String species, int age, Habitat habitat) {
+        a3 = new Animal(name, species, age, habitat);
+    }
+
+    void addAnimal4(String name, String species, int age, Habitat habitat) {
+        a4 = new Animal(name, species, age, habitat);
+    }
+
+    String getAnimalDetails(int index) {
+        switch (index) {
+            case 1: return a1 != null ? a1.getDetails() : "No animal in this slot.";
+            case 2: return a2 != null ? a2.getDetails() : "No animal in this slot.";
+            case 3: return a3 != null ? a3.getDetails() : "No animal in this slot.";
+            case 4: return a4 != null ? a4.getDetails() : "No animal in this slot.";
+            default: return "Invalid slot.";
+        }
+    }
+}
+
+class Staff {
+    private String name;
+    private String role;
+    private Habitat assignedHabitat;
+
+    public Staff(String name, String role, Habitat assignedHabitat) {
+        this.name = name;
+        this.role = role;
+        this.assignedHabitat = assignedHabitat;
+    }
+
+    public void assignStaff(Habitat habitat) {
+        assignedHabitat = habitat;
+        // Print staff assignment information to the console
+        System.out.println(name + " is assigned to the " + habitat.getType() + " habitat.");
+    }
+}
+
